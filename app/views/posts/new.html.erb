@@ -1,0 +1,13 @@
+<% content_for :title, "New post" %>
+
+<h1 style="font-size: 2em; color: #333; text-align: center; margin-bottom: 20px;">New Post</h1>
+
+<div style="max-width: 600px; margin: 0 auto;">
+  <%= render "form", post: @post %>
+</div>
+
+<br>
+
+<div style="text-align: center;">
+  <%= link_to "Back to posts", posts_path, class: "btn btn-secondary" %>
+</div>

@@ -1,0 +1,44 @@
+<p style="color: green; font-weight: bold; text-align: center; margin-bottom: 20px;"><%= notice %></p>
+
+<div class="post-card" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+  <%= render @post %>
+</div>
+
+<div style="text-align: center; margin-top: 20px;">
+  <%= link_to "Edit this post", edit_post_path(@post), class: "btn btn-outline-secondary btn-sm" %> |
+  <%= link_to "Back to posts", posts_path, class: "btn btn-outline-primary btn-sm" %>
+  <br>
+  <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-danger btn-sm" %>
+</div>
+
+<!-- Comments Section -->
+<h3>Comments:</h3>
+
+<% @post.comments.each do |comment| %>
+  <div class="comment" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
+    <p><strong><%= comment.user.username %></strong></p>
+    <p><%= comment.content %></p>
+
+    <% if user_signed_in? && comment.user == current_user %>
+      <div class="comment-actions" style="margin-top: 10px;">
+        <%= link_to "Edit", edit_post_comment_path(@post, comment), class: "btn btn-outline-secondary btn-sm" %>
+        <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if user_signed_in? %>
+  <h4>Add a Comment:</h4>
+  <%= form_with model: [ @post, @post.comments.build ], local: true do |form| %>
+    <div class="field">
+      <%= form.label :content, "Comment" %>
+      <%= form.text_area :content, rows: 4 %>
+    </div>
+    <div class="actions">
+      <%= form.submit "Add Comment", class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Please <%= link_to "sign in", new_user_session_path %> to comment.</p>
+<% end %>

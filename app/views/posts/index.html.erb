@@ -1,0 +1,30 @@
+<p style="color: green; font-weight: bold; text-align: center;"><%= notice %></p>
+
+<% content_for :title, "Posts" %>
+
+<h1 class="page-title">Posts</h1>
+
+
+
+<% if user_signed_in? &&  current_user.agency? %>
+  <%= link_to 'View Your Posts', user_posts_path %>
+  <br><br>
+  <div class="new-post-link">
+    <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+  </div>  
+<% end %>
+
+<div id="posts" class="posts-container">
+  <% @posts.each do |post| %><br>
+    <div class="post-card"><br>
+      <!-- Display the username before the title -->
+      <p><strong>Posted by:</strong> <%= post.user.username %></p> 
+      <h2><%= post.title %></h2>
+      <p><%= post.content %></p>
+      
+      <p>
+        <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
+      </p>
+    </div>
+  <% end %>
+</div>
