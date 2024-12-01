@@ -13,6 +13,16 @@
  *= require_tree .
  *= require_self
  */
- body {
-    background-color: #aaa5a57b; /* or your desired color */
-    }
+body {
+   background-color: #aaa5a57b; /* or your desired color */
+   }
+.deneme {
+   color:rgba(1, 1, 245, 0.303);
+}
+
+.sag {
+   margin-left: 69.5%;
+}
+.card{
+   background-color: #ffffff;
+}

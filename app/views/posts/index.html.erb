@@ -2,25 +2,23 @@
 
 <% content_for :title, "Posts" %>
 
-<h1 class="page-title">Posts</h1>
-
-
-
-<% if user_signed_in? &&  current_user.agency? %>
-  <%= link_to 'View Your Posts', user_posts_path %>
-  <br><br>
-  <div class="new-post-link">
-    <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+<div class="deneme">
+  <h1 class="page-title">Posts</h1>
+  <% if user_signed_in? && current_user.agency? %>
+    <%= link_to 'View Your Posts', user_posts_path, class: "btn btn-link sag" %>
+    <div class="new-post-link">
+      <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
   </div>  
-<% end %>
+  <% end %>
+</div>
 
-<div id="posts" class="posts-container">
+<div id="posts" class="card w-75 mx-auto">
   <% @posts.each do |post| %><br>
-    <div class="post-card"><br>
+    <div class="card-body"><br>
       <!-- Display the username before the title -->
       <p><strong>Posted by:</strong> <%= post.user.username %></p> 
-      <h2><%= post.title %></h2>
-      <p><%= post.content %></p>
+      <h2 class="card-title"><%= post.title %></h2>
+      <p class="card-text"><%= post.content %></p>
       
       <p>
         <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
