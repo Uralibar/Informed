@@ -4,16 +4,19 @@
   <%= render @post %>
 </div>
 
-<div style="text-align: center; margin-top: 20px;">
-  <%= link_to "Edit this post", edit_post_path(@post), class: "btn btn-outline-secondary btn-sm" %> |
-  <%= link_to "Back to posts", posts_path, class: "btn btn-outline-primary btn-sm" %>
-  <br>
-  <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-danger btn-sm" %>
+<div class="abc" style="text-align: center; margin-top: 20px;">
+  <% if user_signed_in? && @post.user == current_user %>
+    <%= link_to "Edit this post", edit_post_path(@post), class: "btn btn-outline-secondary btn-sm" %> &nbsp|&nbsp
+    <%= link_to "Back to posts", posts_path, class: "btn btn-outline-primary btn-sm" %> &nbsp|&nbsp 
+    <br>
+    <%= button_to "Destroy this post", @post, method: :delete, class: "btn btn-danger btn-sm" %>
+  <% end %>
 </div>
+<br>
 
 <!-- Comments Section -->
 <h3>Comments:</h3>
-
+<br>
 <% @post.comments.each do |comment| %>
   <div class="comment" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
     <p><strong><%= comment.user.username %></strong></p>
@@ -32,7 +35,6 @@
   <h4>Add a Comment:</h4>
   <%= form_with model: [ @post, @post.comments.build ], local: true do |form| %>
     <div class="field">
-      <%= form.label :content, "Comment" %>
       <%= form.text_area :content, rows: 4 %>
     </div>
     <div class="actions">

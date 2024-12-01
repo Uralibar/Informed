@@ -3,18 +3,24 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
     <div>
-      <h2><%= post.title %></h2>
-      <p><%= post.content %></p>
+      <div id="posts" class="card w-50 mx-auto">
+        <div class="card-body"><br>
+          <!-- Display the username before the title -->
+          <h2 class="card-title"><%= post.title %></h2>
+          <p class="card-text"><%= post.content %></p>
+          </div>
+      </div>
 
       <!-- Edit button for the post -->
-      <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %> |
-
+      <div class="abc">
+        <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %> &nbsp|&nbsp
+        <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %> &nbsp|&nbsp
       <!-- Delete button for the post -->
-      <%= button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you want to delete this post?' }, class: 'btn btn-danger btn-sm' %>
+      <%= button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you want to delete this post?' }, class: 'btn btn-danger btn-sm' %></div>
     </div>
   <% end %>
 <% else %>
   <p>You have no posts yet.</p>
 <% end %>
-
+<br>
 <%= link_to 'Back to All Posts', posts_path %> <!-- Link to view all posts -->

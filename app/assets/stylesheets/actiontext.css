@@ -34,8 +34,19 @@ trix-editor {
   max-height: 500px;  /* Optionally, set a maximum height to prevent endless expansion */
   overflow-y: auto;   /* Add scrollbars if content exceeds the maximum height */
   height: auto; 
+  text-align: left; /* Aligns text to the left */
+
 }
 
 trix-editor .trix-content {
   max-height: none;  /* Allow the content area to expand without limit */
+}
+.element.style{
+  height:auto;
+}
+
+textarea {  
+  width: 40%; /* Adjust width as needed (e.g., 400px, 80%, etc.) */
+  height: 100px; /* Set a custom height */
+  resize: vertical; /* Allows users to adjust height but not width */
 }

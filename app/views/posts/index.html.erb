@@ -5,15 +5,14 @@
 <div class="deneme">
   <h1 class="page-title">Posts</h1>
   <% if user_signed_in? && current_user.agency? %>
-    <%= link_to 'View Your Posts', user_posts_path, class: "btn btn-link sag" %>
     <div class="new-post-link">
       <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
   </div>  
   <% end %>
 </div>
 
-<div id="posts" class="card w-75 mx-auto">
-  <% @posts.each do |post| %><br>
+<% @posts.each do |post| %><br>
+  <div id="posts" class="card w-50 mx-auto">
     <div class="card-body"><br>
       <!-- Display the username before the title -->
       <p><strong>Posted by:</strong> <%= post.user.username %></p> 
@@ -24,5 +23,6 @@
         <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
       </p>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %> 
+
