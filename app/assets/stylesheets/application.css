@@ -16,6 +16,14 @@
 body {
    background-color: #aaa5a57b; /* or your desired color */
    }
+.bg-dark {
+   background-color: #003366!important;
+}
+.btn-outline-success {
+   background-color: #28a745;
+   color: white;
+}
+
 .deneme {
    color: #000080;
 }
@@ -204,4 +212,24 @@ text-decoration: underline;
 
 .ms-3 {
    margin-left: 1rem; /* Add spacing between username and search form */
+}
+
+.comment-content {
+   max-width: 50%;
+   margin: auto;
+   background-color: #cecece;
+   border-radius: 8px;
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.post-card {
+   max-width: 50%;
+   margin: auto;
+   border: 1px solid #ddd; 
+   border-radius: 8px; 
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.card{
+   border-radius: 8px; 
+
 }

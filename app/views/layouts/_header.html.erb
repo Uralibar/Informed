@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="http://127.0.0.1:3000">Navbar</a>
+  <div class="container-fluid"> 
+    <a class="navbar-brand" href="http://127.0.0.1:3000" >Informed</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,11 +17,17 @@
             <%= link_to "Add Post", new_post_path , class:"nav-link"%>
           </li>
           <li class="nav-item">
+            <%= link_to "Edit Profile", edit_user_registration_path , class:"nav-link"%>
+          </li>
+          <li class="nav-item">
             <%= link_to "Sign Out", destroy_user_session_path,  data: { turbo_method: :delete }, class:"nav-link"%>
           </li>
         <% elsif user_signed_in?%>
           <li class="nav-item">
             <%= link_to "Edit Profile", edit_user_registration_path , class:"nav-link"%>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign Out", destroy_user_session_path,  data: { turbo_method: :delete }, class:"nav-link"%>
           </li>
         <% else %>
           <li class="nav-item">
