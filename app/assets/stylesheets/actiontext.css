@@ -35,7 +35,7 @@ trix-editor {
   overflow-y: auto;   /* Add scrollbars if content exceeds the maximum height */
   height: auto; 
   text-align: left; /* Aligns text to the left */
-
+  resize: none;
 }
 
 trix-editor .trix-content {
@@ -48,5 +48,5 @@ trix-editor .trix-content {
 textarea {  
   width: 40%; /* Adjust width as needed (e.g., 400px, 80%, etc.) */
   height: 100px; /* Set a custom height */
-  resize: vertical; /* Allows users to adjust height but not width */
+  resize: none; /* Allows users to adjust height but not width */
 }
