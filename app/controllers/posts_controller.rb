@@ -7,6 +7,7 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     @posts = Post.all
+    @top_posts = Post.joins(:votes).group("posts.id").order("SUM(votes.value) DESC").limit(5)
   end
 
   # GET /user_posts

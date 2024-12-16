@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   # Route for viewing the logged-in user's posts
   get "user_posts", to: "posts#user_posts", as: "user_posts"
 
+
+
   resources :posts do
     resources :comments, only: [ :create, :edit, :update, :destroy ]
     member do

@@ -275,3 +275,27 @@ text-decoration: underline;
 .vote-image:hover {
    opacity: 0.8; /* Optional hover effect */
 }
+
+/* Wrapper for both posts and top posts */
+.content-wrapper {
+   display: flex;
+   flex-wrap: wrap; /* Allows wrapping if the screen size is small */
+   gap: 5%;
+   margin-right: 5%;
+ }
+ 
+ /* Posts List */
+ .posts-list {
+   width: 75%; /* Adjust width to your preference */
+ }
+ 
+ /* Top Posts */
+ .top-posts {
+   width: 20%; /* Adjust width to your preference */
+   padding: 10px;
+   background-color: #f8f9fa;
+   border-radius: 8px;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   height: 100%;
+ }
+ 
