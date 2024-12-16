@@ -233,3 +233,45 @@ text-decoration: underline;
    border-radius: 8px; 
 
 }
+
+.post-voting {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   justify-content: center;
+}
+ 
+.post-voting .btn {
+   padding: 5px 10px;
+   font-size: 14px;
+}
+
+.post-voting-index {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   width: 100%;
+}
+
+.post-voting-index .btn {
+   padding: 5px 10px;
+   font-size: 14px;
+   justify-content: center;
+}
+
+
+.vote-button {
+   background: none;
+   border: none;
+   padding: 0;
+   cursor: pointer;
+}
+
+.vote-image {
+   width: 32px; /* Adjust size as needed */
+   height: 32px;
+}
+
+.vote-image:hover {
+   opacity: 0.8; /* Optional hover effect */
+}

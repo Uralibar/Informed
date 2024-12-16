@@ -66,6 +66,15 @@ class PostsController < ApplicationController
     end
   end
 
+  def upvote
+    handle_vote(1, "Upvote removed!", "Upvoted successfully!")
+  end
+
+  def downvote
+    handle_vote(-1, "Downvote removed!", "Downvoted successfully!")
+  end
+
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -88,6 +97,20 @@ class PostsController < ApplicationController
     def check_agency_permissions
       unless current_user.agency?
         redirect_to posts_path, alert: "You are not authorized to perform this action."
+      end
+    end
+    def handle_vote(value, remove_message, add_message)
+      post = Post.find(params[:id])
+      vote = post.votes.find_by(user: current_user)
+
+      if vote&.value == value
+        vote.destroy
+        redirect_to request.referer || posts_path, notice: remove_message
+      else
+        vote = post.votes.find_or_initialize_by(user: current_user)
+        vote.value = value
+        vote.save
+        redirect_to request.referer || posts_path, notice: add_message
       end
     end
 end

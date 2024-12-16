@@ -19,9 +19,35 @@
       <h2 class="card-title"><%= post.title %></h2>
       <p class="card-text"><%= post.content %></p>
       
-      <p>
-        <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm" %>
-      </p>
+        <!-- Voting Section -->
+      <div class="post-voting-index">
+        <p>Score: <%= post.score %></p>
+
+        <% current_vote = post.votes.find_by(user: current_user) %>
+
+        <!-- Upvote Button -->
+        <% if current_vote&.value == 1 %>
+          <%= button_to upvote_post_path(post), method: :post, class: "vote-button" do %>
+            <%= image_tag "upvote.png", alt: "Upvote", class: "vote-image" %>
+          <% end %>
+        <% else %>
+          <%= button_to upvote_post_path(post), method: :post, class: "vote-button" do %>
+            <%= image_tag "upvote_grey.png", alt: "Upvote", class: "vote-image" %>
+          <% end %>
+        <% end %>
+
+        <!-- Downvote Button -->
+        <% if current_vote&.value == -1 %>
+          <%= button_to downvote_post_path(post), method: :post, class: "vote-button" do %>
+            <%= image_tag "downvote.png", alt: "Downvote", class: "vote-image" %>
+          <% end %>
+        <% else %>
+          <%= button_to downvote_post_path(post), method: :post, class: "vote-button" do %>
+            <%= image_tag "downvote_grey.png", alt: "Downvote", class: "vote-image" %>
+          <% end %>
+        <% end %>
+        <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm"%>
+      </div>
     </div>
   </div>
 <% end %> 
