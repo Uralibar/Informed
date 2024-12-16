@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   # Route for viewing the logged-in user's posts
   get "user_posts", to: "posts#user_posts", as: "user_posts"
+  get "profile/:id", to: "profiles#show", as: "user_profile"
+  get "find_user_by_username", to: "profiles#find_user_by_username", as: "find_user_by_username"
 
 
 
@@ -16,14 +18,6 @@ Rails.application.routes.draw do
       post "downvote"
     end
   end
-
-
-
-
-
-
-
-
 
 
 
