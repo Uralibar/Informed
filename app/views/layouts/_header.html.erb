@@ -44,10 +44,12 @@
       <div class="d-flex ms-auto align-items-center">
         <form class="d-flex" role="search" method="get" action="<%= find_user_by_username_path %>">
           <input class="form-control me-2" type="search" name="username" placeholder="Search by username" aria-label="Search">
+          <input type="hidden" name="redirect_to_agency_search" value="true">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+
+
         <% if user_signed_in? %>
-          <!-- Username Display -->
           <span class="navbar-text text-light ms-3">
             <%= current_user.username %>
           </span>

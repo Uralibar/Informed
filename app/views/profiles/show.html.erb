@@ -1,12 +1,8 @@
-<!-- app/views/profiles/show.html.erb -->
-
 <h1><%= @user.username %>'s Profile</h1>
 
-<!-- Profile Information -->
 <p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Role:</strong> <%= @user.role.capitalize %></p> <!-- Assuming you have a role field for users -->
+<p><strong>Role:</strong> <%= @user.role.capitalize %></p>
 
-<!-- Display the user's posts -->
 <h2>Posts</h2>
 <% if @posts.any? %>
   <% @posts.each do |post| %>
@@ -37,6 +33,5 @@
   <p>This user has no posts yet.</p>
 <% end %>
 
-<!-- Link to go back to all posts -->
 <br>
 <%= link_to 'Back to All Posts', posts_path %>
