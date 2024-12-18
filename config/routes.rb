@@ -18,7 +18,11 @@ Rails.application.routes.draw do
       post "downvote"
     end
   end
-
+  resources :follows, only: [ :create, :destroy ] do
+    collection do
+      get :agency_feed  # New route for the agency feed
+    end
+  end
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
