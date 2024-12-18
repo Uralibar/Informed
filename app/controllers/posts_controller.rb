@@ -1,18 +1,36 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: %i[ index show ] # Ensure user is logged in
-  before_action :check_post_owner, only: %i[ edit update destroy ] # Ensure users can only edit their own posts
+  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :check_post_owner, only: %i[ edit update destroy ]
   before_action :check_agency_permissions, only: %i[new create edit update destroy]
 
   # GET /posts or /posts.json
   def index
     @posts = Post.all
-    @top_posts = Post.joins(:votes).group("posts.id").order("SUM(votes.value) DESC").limit(5)
+    @top_posts = Post.left_joins(:votes).group("posts.id").order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC")).limit(5)
+
+    @sort = params[:sort]
+
+    @posts = case @sort
+    when "most_upvoted"
+      Post.left_joins(:votes)
+          .group("posts.id")
+          .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
+    when "most_downvoted"
+      Post.left_joins(:votes)
+          .group("posts.id")
+          .order(Arel.sql("COALESCE(SUM(votes.value), 0) ASC"))
+    when "newest"
+      Post.order(created_at: :desc)
+    when "oldest"
+      Post.order(created_at: :asc)
+    else
+      Post.order(created_at: :desc)
+    end
   end
 
   # GET /user_posts
   def user_posts
-    # Ensure the current_user is present and has posts
     @posts = current_user.posts
   end
 
@@ -78,19 +96,16 @@ class PostsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
 
-    # Ensure only the owner of the post can edit, update, or destroy it
     def check_post_owner
       unless @post.user == current_user
         redirect_to posts_path, alert: "You can only edit or delete your own posts."
       end
     end
 
-    # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content, :image)
     end

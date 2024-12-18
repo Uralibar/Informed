@@ -5,7 +5,25 @@ class ProfilesController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+
+    @sort = params[:sort]
+
+    @posts = case @sort
+    when "most_upvoted"
+      @user.posts.left_joins(:votes)
+          .group("posts.id")
+          .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
+    when "most_downvoted"
+      @user.posts.left_joins(:votes)
+          .group("posts.id")
+          .order(Arel.sql("COALESCE(SUM(votes.value), 0) ASC"))
+    when "newest"
+      @user.posts.order(created_at: :desc)
+    when "oldest"
+      @user.posts.order(created_at: :asc)
+    else
+      @user.posts.order(created_at: :desc)
+    end
   end
 
   def find_user_by_username

@@ -1,5 +1,3 @@
-<p style="color: green; font-weight: bold; text-align: center;"><%= notice %></p>
-
 <% content_for :title, "Following" %>
 
 <div class="deneme">
@@ -12,12 +10,30 @@
 </div>
 
 
+<div class="sort-dropdown">
+  <%= form_with url: agency_feed_follows_path, method: :get, local: true, class: "form-inline" do %>
+    <label for="sort" class="mr-2">Sort By:</label>
+    <%= select_tag :sort, options_for_select(
+      [
+        ['Newest', 'newest'],
+        ['Oldest', 'oldest'],
+        ['Most Upvoted', 'most_upvoted'],
+        ['Most Downvoted', 'most_downvoted']        
+      ], 
+      selected: @sort
+    ), 
+    class: "form-control", 
+    onchange: 'this.form.submit();' %>
+  <% end %>
+</div
+
+
   <!-- Posts List -->
 <% @posts.each do |post| %><br>
   <div id="posts" class="card w-50 mx-auto">
     <div class="card-body"><br>
-      <!-- Display the username before the title -->
-      <p><strong>Posted by:</strong> <%= post.user.username %></p> 
+      <p><strong>Posted by:</strong> <%= link_to post.user.username, user_profile_path(post.user) %></p>
+      <p><strong>Posted:</strong> <%= time_ago_in_words(post.created_at) %> ago</p>
       <h2 class="card-title"><%= post.title %></h2>
       <p class="card-text"><%= post.content %></p>
       

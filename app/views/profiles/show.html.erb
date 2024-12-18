@@ -22,12 +22,32 @@
   <%= link_to followee.username, user_profile_path(followee) %>
 <% end %>
 
+
+<div class="sort-dropdown">
+  <%= form_with url: user_profile_path, method: :get, local: true, class: "form-inline" do %>
+    <label for="sort" class="mr-2">Sort By:</label>
+    <%= select_tag :sort, options_for_select(
+      [
+        ['Newest', 'newest'],
+        ['Oldest', 'oldest'],
+        ['Most Upvoted', 'most_upvoted'],
+        ['Most Downvoted', 'most_downvoted'],
+      ], 
+      selected: @sort
+    ), 
+    class: "form-control", 
+    onchange: 'this.form.submit();' %>
+  <% end %>
+</div>
+
+
 <h2>Posts</h2>
 <% if @posts.any? %>
   <% @posts.each do |post| %>
     <div style="margin-bottom: 20px;">
       <div id="posts" class="card w-50 mx-auto">
         <div class="card-body"><br>
+          <p><strong>Posted:</strong> <%= time_ago_in_words(post.created_at) %> ago</p>
           <h2 class="card-title"><%= post.title %></h2>
           <p class="card-text"><%= post.content %></p>
             <!-- Voting Section -->

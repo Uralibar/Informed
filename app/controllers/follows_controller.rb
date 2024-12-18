@@ -24,7 +24,19 @@ class FollowsController < ApplicationController
 
   def agency_feed
     followees = current_user.followees.where(role: 1)
+    @sort = params[:sort]
 
-    @posts = Post.where(user_id: followees.ids).order(created_at: :desc)
+    case @sort
+    when "most_upvoted"
+      @posts = Post.left_joins(:votes).where(user_id: followees.ids).group("posts.id") .order(Arel.sql("COALESCE(SUM(votes.value), 0) DESC"))
+    when "most_downvoted"
+      @posts = Post.left_joins(:votes).where(user_id: followees.ids).group("posts.id").order(Arel.sql("COALESCE(SUM(votes.value), 0) ASC"))
+    when "newest"
+      @posts = Post.where(user_id: followees.ids).order(created_at: :desc)
+    when "oldest"
+      @posts = Post.where(user_id: followees.ids).order(created_at: :asc)
+    else
+      @posts = Post.where(user_id: followees.ids).order(created_at: :desc)
+    end
   end
 end
