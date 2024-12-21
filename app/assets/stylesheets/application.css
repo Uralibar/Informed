@@ -26,6 +26,8 @@ body {
 
 .deneme {
    color: #000080;
+   display: flex;
+   justify-content: center;
 }
 
 .sag {
@@ -283,13 +285,14 @@ text-decoration: underline;
 .content-wrapper {
    display: flex;
    flex-wrap: wrap; /* Allows wrapping if the screen size is small */
-   gap: 5%;
    margin-right: 5%;
+   margin-left: 5%;
+   gap: 4%;
  }
  
  /* Posts List */
  .posts-list {
-   width: 75%; /* Adjust width to your preference */
+   width: 52%; /* Adjust width to your preference */
  }
  
  /* Top Posts */
@@ -300,6 +303,7 @@ text-decoration: underline;
    border-radius: 8px;
    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
    height: 100%;
+
  }
  .sort-dropdown select {
    color: #000; 

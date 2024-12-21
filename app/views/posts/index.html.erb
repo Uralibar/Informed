@@ -1,38 +1,48 @@
-
 <% content_for :title, "Posts" %>
 
 <div class="deneme">
-  <h1 class="page-title">Posts</h1>
-  <% if user_signed_in? && current_user.agency? %>
-    <div class="new-post-link">
-      <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+  <div class="sort-dropdown center-item" >
+    <%= form_with url: posts_path, method: :get, local: true, class: "form-inline" do %>
+      <label for="sort" class="mr-2">Sort By:</label>
+      <%= select_tag :sort, options_for_select(
+        [
+          ['Newest', 'newest'],
+          ['Oldest', 'oldest'],
+          ['Most Upvoted', 'most_upvoted'],
+          ['Most Downvoted', 'most_downvoted'],
+        ], 
+        selected: @sort
+      ), 
+      class: "form-control", 
+      onchange: 'this.form.submit();' %>
+    <% end %>
   </div>  
-  <% end %>
+  <h1 class="page-title left-item"  >Posts</h1>
+  
 </div>
 
-<div class="sort-dropdown">
-  <%= form_with url: posts_path, method: :get, local: true, class: "form-inline" do %>
-    <label for="sort" class="mr-2">Sort By:</label>
-    <%= select_tag :sort, options_for_select(
-      [
-        ['Newest', 'newest'],
-        ['Oldest', 'oldest'],
-        ['Most Upvoted', 'most_upvoted'],
-        ['Most Downvoted', 'most_downvoted'],
-      ], 
-      selected: @sort
-    ), 
-    class: "form-control", 
-    onchange: 'this.form.submit();' %>
-  <% end %>
-</div>
+
 
 
 <div class="content-wrapper">
+  <div class="top-posts">
+    <% if user_signed_in?%>
+    <p><strong>Username:</strong> <br><%= link_to current_user.username , user_profile_path(current_user) %></p>
+    <% end %>
+    <%unless user_signed_in? %>
+    <p><br><p>
+    <%end%>
+    <% if user_signed_in? && current_user.agency? %>
+      <div class="new-post-link">
+        <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+    </div>  
+    <% end %>
+  </div>
+
   <!-- Posts List -->
   <div class="posts-list">
-    <% @posts.each do |post| %><br>
-      <div id="posts" class="card w-75 mx-auto">
+    <% @posts.each do |post| %>
+      <div id="posts" class="card w-100 mx-auto">
         <div class="card-body"><br>
           <!-- Display the username before the title -->
           <p><strong>Posted by:</strong> <%= link_to post.user.username, user_profile_path(post.user) %></p>
@@ -71,6 +81,7 @@
           </div>
         </div>
       </div>
+      <br>
     <% end %> 
   </div>
 
@@ -85,4 +96,3 @@
     <% end %>
   </div>
 </div>
-
