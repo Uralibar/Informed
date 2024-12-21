@@ -1,7 +1,7 @@
 <% content_for :title, "Posts" %>
 
 <div class="deneme">
-  <div class="sort-dropdown center-item" >
+  <div class="sort-dropdown" >
     <%= form_with url: posts_path, method: :get, local: true, class: "form-inline" do %>
       <label for="sort" class="mr-2">Sort By:</label>
       <%= select_tag :sort, options_for_select(
@@ -17,17 +17,16 @@
       onchange: 'this.form.submit();' %>
     <% end %>
   </div>  
-  <h1 class="page-title left-item"  >Posts</h1>
+  <h1 class="page-title"  >Posts</h1>
   
 </div>
-
-
 
 
 <div class="content-wrapper">
   <div class="top-posts">
     <% if user_signed_in?%>
     <p><strong>Username:</strong> <br><%= link_to current_user.username , user_profile_path(current_user) %></p>
+    <p><strong>Biography:</strong><br><%= current_user.biography %></p>
     <% end %>
     <%unless user_signed_in? %>
     <p><br><p>

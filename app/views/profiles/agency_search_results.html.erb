@@ -1,14 +1,18 @@
-<h1>Agency User Search Results</h1>
+<div class="agency-user-search-container">
+  <h1>Agency User Search Results</h1>
 
-<% if @agency_users.any? %>
+  <% if @agency_users.any? %>
     <% @agency_users.each do |user| %>
-        <div class="d-flex align-items-center justify-content-center">
-            <p><%= link_to user.username, user_profile_path(user), class: "btn btn-link" %></p>
-            <p>Number of posts: <%= user.posts.count %></p>
-        </div>
+      <div class="user-item">
+        <p><%= link_to user.username, user_profile_path(user), class: "btn btn-link" %></p>
+        <p class="post-count">Number of posts: <%= user.posts.count %></p>
+      </div>
     <% end %>
-<% else %>
-  <p>No matching agency users found.</p>
-<% end %>
+  <% else %>
+    <p class="no-results">No matching agency users found.</p>
+  <% end %>
 
-<%= link_to "Back to Home", root_path, class: "btn btn-primary" %>
+  <div class="back-link">
+    <%= link_to "Back to Home", root_path, class: "btn btn-primary" %>
+  </div>
+</div>

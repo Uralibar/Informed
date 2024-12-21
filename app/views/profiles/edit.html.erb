@@ -1,0 +1,12 @@
+<h1>Edit Your Profile</h1>
+
+<%= form_for(@user, url: profile_path, method: :patch) do |f| %>
+  <div class="form-group">
+    <%= f.label :biography, "Biography" %>
+    <%= f.text_area :biography, class: 'form-control', rows: 5 %>
+  </div>
+
+  <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Back to Profile', user_profile_path(current_user), class: 'btn btn-secondary' %>

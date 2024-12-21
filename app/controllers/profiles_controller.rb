@@ -25,6 +25,28 @@ class ProfilesController < ApplicationController
     @user_comments = @user.comments.order(created_at: :desc)
   end
 
+  def edit
+    # Find the user from the URL parameter
+    @user = User.find(params[:id])
+
+    # Redirect if the user is not the one who owns the profile
+    if @user != current_user
+      redirect_to user_profile_path(current_user), alert: "You can only edit your own profile."
+    end
+  end
+
+
+  def update
+    @user = current_user
+
+    if @user.update(user_params)
+      redirect_to user_profile_path(@user), notice: "Profile updated successfully."
+    else
+      render :edit
+    end
+  end
+
+
   def find_user_by_username
     @user = User.find_by(username: params[:username])
 
@@ -45,4 +67,7 @@ class ProfilesController < ApplicationController
     render "profiles/agency_search_results"
   end
   private
+  def user_params
+    params.require(:user).permit(:biography)
+  end
 end

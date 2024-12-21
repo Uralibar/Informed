@@ -1,13 +1,12 @@
 <% content_for :title, "Following" %>
 
-<div class="deneme">
-  <h1 class="page-title">Following</h1>
-  <% if user_signed_in? && current_user.agency? %>
-    <div class="new-post-link">
-      <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
-    </div>
-  <% end %>
-</div>
+<h1 style="text-align: center;">Following</h1>
+<% if user_signed_in? && current_user.agency? %>
+  <div class="new-post-link">
+    <%= link_to "New post", new_post_path, class: "btn btn-primary" %>
+  </div>
+<% end %>
+
 
 
 <div class="sort-dropdown">

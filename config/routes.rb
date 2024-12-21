@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Route for viewing the logged-in user's posts
   get "user_posts", to: "posts#user_posts", as: "user_posts"
   get "profile/:id", to: "profiles#show", as: "user_profile"
+  get "profile/:id/edit", to: "profiles#edit", as: "edit_user_profile"
   get "find_user_by_username", to: "profiles#find_user_by_username", as: "find_user_by_username"
   get "search_agency_users", to: "profiles#search_agency_users", as: "search_agency_users"
 
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
       get :agency_feed
     end
   end
+  resource :profile, only: [ :show, :edit, :update ]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
