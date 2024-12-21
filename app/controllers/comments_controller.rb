@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = @post.comments.build(comment_params)
-    @comment.user = current_user # Associate the comment with the logged-in user
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save

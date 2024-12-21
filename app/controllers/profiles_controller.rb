@@ -1,7 +1,5 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_user!
-  # delete if user should have profile page
-  before_action :check_agency_role, only: [ :show ]
 
   def show
     @user = User.find(params[:id])
@@ -24,6 +22,7 @@ class ProfilesController < ApplicationController
     else
       @user.posts.order(created_at: :desc)
     end
+    @user_comments = @user.comments.order(created_at: :desc)
   end
 
   def find_user_by_username
@@ -46,9 +45,4 @@ class ProfilesController < ApplicationController
     render "profiles/agency_search_results"
   end
   private
-  # delete if user should have profile page
-  def check_agency_role
-    user = User.find(params[:id])
-    redirect_to root_path, alert: "This user does not have a profile page." unless user.agency?
-  end
 end

@@ -1,104 +1,128 @@
-<div class="d-flex align-items-center justify-content-center"> 
-  <h1><%= @user.username %>'s Page</h1> &nbsp; &nbsp;
-  <% if current_user != @user && @user.agency? %>
-    <% if current_user.followees.include?(@user) %>
-      <%= button_to 'Unfollow', follow_path(followee_id: @user.id), method: :delete, class: 'btn btn-danger' %>
-    <% else %>
-      <%= button_to 'Follow', follows_path(followee_id: @user.id), method: :post, class: 'btn btn-primary' %>
+<%if @user.agency?%>
+  <div class="d-flex align-items-center justify-content-center"> 
+    <h1><%= @user.username %>'s Page</h1> &nbsp; &nbsp;
+    <% if current_user != @user && @user.agency? %>
+      <% if current_user.followees.include?(@user) %>
+        <%= button_to 'Unfollow', follow_path(followee_id: @user.id), method: :delete, class: 'btn btn-danger' %>
+      <% else %>
+        <%= button_to 'Follow', follows_path(followee_id: @user.id), method: :post, class: 'btn btn-primary' %>
+      <% end %>
     <% end %>
+  </div>
+
+  <p><strong>Email:</strong> <%= @user.email %></p>
+  <p><strong>Role:</strong> <%= @user.role.capitalize %></p>
+
+  <h3>Followers</h3>
+  <% @user.followers.each do |follower| %>
+    <%= link_to follower.username, user_profile_path(follower) %>
   <% end %>
-</div>
 
-<p><strong>Email:</strong> <%= @user.email %></p>
-<p><strong>Role:</strong> <%= @user.role.capitalize %></p>
-
-<h3>Followers</h3>
-<% @user.followers.each do |follower| %>
-  <%= link_to follower.username, user_profile_path(follower) %>
-<% end %>
-
-<h3>Following</h3>
-<% @user.followees.each do |followee| %>
-  <%= link_to followee.username, user_profile_path(followee) %>
-<% end %>
-
-
-<div class="sort-dropdown">
-  <%= form_with url: user_profile_path, method: :get, local: true, class: "form-inline" do %>
-    <label for="sort" class="mr-2">Sort By:</label>
-    <%= select_tag :sort, options_for_select(
-      [
-        ['Newest', 'newest'],
-        ['Oldest', 'oldest'],
-        ['Most Upvoted', 'most_upvoted'],
-        ['Most Downvoted', 'most_downvoted'],
-      ], 
-      selected: @sort
-    ), 
-    class: "form-control", 
-    onchange: 'this.form.submit();' %>
+  <h3>Following</h3>
+  <% @user.followees.each do |followee| %>
+    <%= link_to followee.username, user_profile_path(followee) %>
   <% end %>
-</div>
 
 
-<h2>Posts</h2>
-<% if @posts.any? %>
-  <% @posts.each do |post| %>
-    <div style="margin-bottom: 20px;">
-      <div id="posts" class="card w-50 mx-auto">
-        <div class="card-body"><br>
-          <p><strong>Posted:</strong> <%= time_ago_in_words(post.created_at) %> ago</p>
-          <h2 class="card-title"><%= post.title %></h2>
-          <p class="card-text"><%= post.content %></p>
-            <!-- Voting Section -->
-            <div class="post-voting-index">
-              <p>Score: <%= post.score %></p>
+  <div class="sort-dropdown">
+    <%= form_with url: user_profile_path, method: :get, local: true, class: "form-inline" do %>
+      <label for="sort" class="mr-2">Sort By:</label>
+      <%= select_tag :sort, options_for_select(
+        [
+          ['Newest', 'newest'],
+          ['Oldest', 'oldest'],
+          ['Most Upvoted', 'most_upvoted'],
+          ['Most Downvoted', 'most_downvoted'],
+        ], 
+        selected: @sort
+      ), 
+      class: "form-control", 
+      onchange: 'this.form.submit();' %>
+    <% end %>
+  </div>
 
-              <% current_vote = post.votes.find_by(user: current_user) %>
 
-              <!-- Upvote Button -->
-              <% if current_vote&.value == 1 %>
-                <%= button_to upvote_post_path(post), method: :post, class: "vote-button" do %>
-                  <%= image_tag "upvote.png", alt: "Upvote", class: "vote-image" %>
+  <h2>Posts</h2>
+  <% if @posts.any? %>
+    <% @posts.each do |post| %>
+      <div style="margin-bottom: 20px;">
+        <div id="posts" class="card w-50 mx-auto">
+          <div class="card-body"><br>
+            <p><strong>Posted:</strong> <%= time_ago_in_words(post.created_at) %> ago</p>
+            <h2 class="card-title"><%= post.title %></h2>
+            <p class="card-text"><%= post.content %></p>
+              <!-- Voting Section -->
+              <div class="post-voting-index">
+                <p>Score: <%= post.score %></p>
+
+                <% current_vote = post.votes.find_by(user: current_user) %>
+
+                <!-- Upvote Button -->
+                <% if current_vote&.value == 1 %>
+                  <%= button_to upvote_post_path(post), method: :post, class: "vote-button" do %>
+                    <%= image_tag "upvote.png", alt: "Upvote", class: "vote-image" %>
+                  <% end %>
+                <% else %>
+                  <%= button_to upvote_post_path(post), method: :post, class: "vote-button" do %>
+                    <%= image_tag "upvote_grey.png", alt: "Upvote", class: "vote-image" %>
+                  <% end %>
                 <% end %>
-              <% else %>
-                <%= button_to upvote_post_path(post), method: :post, class: "vote-button" do %>
-                  <%= image_tag "upvote_grey.png", alt: "Upvote", class: "vote-image" %>
+
+                <!-- Downvote Button -->
+                <% if current_vote&.value == -1 %>
+                  <%= button_to downvote_post_path(post), method: :post, class: "vote-button" do %>
+                    <%= image_tag "downvote.png", alt: "Downvote", class: "vote-image" %>
+                  <% end %>
+                <% else %>
+                  <%= button_to downvote_post_path(post), method: :post, class: "vote-button" do %>
+                    <%= image_tag "downvote_grey.png", alt: "Downvote", class: "vote-image" %>
+                  <% end %>
                 <% end %>
+
+
+              <% if current_user == post.user %>
+                <div class="abc">
+                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                  <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %> &nbsp|&nbsp
+                </div>
               <% end %>
-
-              <!-- Downvote Button -->
-              <% if current_vote&.value == -1 %>
-                <%= button_to downvote_post_path(post), method: :post, class: "vote-button" do %>
-                  <%= image_tag "downvote.png", alt: "Downvote", class: "vote-image" %>
-                <% end %>
-              <% else %>
-                <%= button_to downvote_post_path(post), method: :post, class: "vote-button" do %>
-                  <%= image_tag "downvote_grey.png", alt: "Downvote", class: "vote-image" %>
-                <% end %>
+              <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm"%>
+              <% if current_user == post.user %>
+                <div class="abc">
+                  &nbsp|&nbsp<%= button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you want to delete this post?' }, class: 'btn btn-danger btn-sm' %>
+                </div>
               <% end %>
-
-
-            <% if current_user == post.user %>
-              <div class="abc">
-                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <%= link_to 'Edit', edit_post_path(post), class: 'btn btn-warning btn-sm' %> &nbsp|&nbsp
               </div>
-            <% end %>
-            <%= link_to "Show this post", post, class: "btn btn-outline-primary btn-sm"%>
-            <% if current_user == post.user %>
-              <div class="abc">
-                &nbsp|&nbsp<%= button_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure you want to delete this post?' }, class: 'btn btn-danger btn-sm' %>
-              </div>
-            <% end %>
-            </div>
+          </div>
         </div>
       </div>
+    <% end %>
+  <% else %>
+    <p>This user has no posts yet.</p>
+  <% end %>
+
+  <br>
+  <%= link_to 'Back to All Posts', posts_path %>
+<% end %>
+
+<% unless @user.agency?%>
+  <h1><%= @user.username %>'s Page</h1> &nbsp; &nbsp;
+  <h3>Following</h3>
+  <% @user.followees.each do |followee| %>
+    <%= link_to followee.username, user_profile_path(followee) %>
+  <% end %>
+
+<h3>Comments:</h3>
+
+<% if @user_comments.any? %>
+  <% @user_comments.each do |comment| %>
+    <div class="comment-content card-body">
+      <p><strong>Post:</strong> <%= link_to comment.post.title, post_path(comment.post) %></p>
+      <p><em>commented: <%= time_ago_in_words(comment.created_at) %> ago</em></p>
+      <p><%= comment.content %></p>
     </div>
   <% end %>
 <% else %>
-  <p>This user has no posts yet.</p>
+  <p>No comments available.</p>
 <% end %>
-
-<br>
-<%= link_to 'Back to All Posts', posts_path %>
+<% end %>
