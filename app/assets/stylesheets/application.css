@@ -39,7 +39,7 @@ body {
 .page-title {
    text-align: center; /* Center the page title */
    flex-grow: 1; /* Allow the page title to take up remaining space */
-   margin-right: 12%;
+   margin-right: 0%;
 }
 
 .sag {
@@ -440,3 +440,18 @@ text-decoration: underline;
    box-shadow: #D6D6E7 0 3px 7px inset;
    transform: translateY(2px);
 }
+
+.profile-picture-container-for-home {
+   position: absolute;
+   bottom: 0;
+   left: 5%;
+   transform: translateY(50%);
+}
+
+.profile-picture-for-home {
+   width: 150px;
+   height: 150px;
+   border-radius: 50%;
+}
+
+ 

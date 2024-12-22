@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :followees, through: :active_follows, source: :followee
   has_many :passive_follows, class_name: "Follow", foreign_key: "followee_id", dependent: :destroy
   has_many :followers, through: :passive_follows, source: :follower
+  has_one_attached :profile_picture
+  has_one_attached :banner
   validates :username, presence: true, uniqueness: true
   validates :biography, length: { maximum: 1000 }
 

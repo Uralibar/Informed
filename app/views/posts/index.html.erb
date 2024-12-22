@@ -1,31 +1,24 @@
 <% content_for :title, "Posts" %>
 
 <div class="deneme">
-  <div class="sort-dropdown" >
-    <%= form_with url: posts_path, method: :get, local: true, class: "form-inline" do %>
-      <label for="sort" class="mr-2">Sort By:</label>
-      <%= select_tag :sort, options_for_select(
-        [
-          ['Newest', 'newest'],
-          ['Oldest', 'oldest'],
-          ['Most Upvoted', 'most_upvoted'],
-          ['Most Downvoted', 'most_downvoted'],
-        ], 
-        selected: @sort
-      ), 
-      class: "form-control", 
-      onchange: 'this.form.submit();' %>
-    <% end %>
-  </div>  
-  <h1 class="page-title"  >Posts</h1>
+ 
+  <h1 class="page-title">Posts</h1>
   
 </div>
 
 
 <div class="content-wrapper">
   <div class="top-posts">
+    <div>
+      <% if user_signed_in? && current_user.profile_picture.attached? %>
+        <%= image_tag current_user.profile_picture, class: "profile-picture-for-home" %>
+      <% else %>
+        <%= image_tag "landscape-placeholder.png", class: "profile-picture-for-home" %>
+      <% end %>
+    </div>
     <% if user_signed_in?%>
     <p><strong>Username:</strong> <br><%= link_to current_user.username , user_profile_path(current_user) %></p>
+    <% if current_user.agency? %>
     <div class="d-flex justify-content-between my-3 align-items-center mt-4 px-5">
       <div class="stats">
         <h6 class="mb-0">Followers</h6>
@@ -36,6 +29,19 @@
         <span><%= current_user.posts.count %></span>
       </div>      
     </div>
+    <% else %>
+    <div class="d-flex justify-content-between my-3 align-items-center mt-4 px-5">
+      <div class="stats">
+        <h6 class="mb-0">Following</h6>
+        <span><%= current_user.followees.count %></span>
+      </div>
+      <div class="stats">
+        <h6 class="mb-0">Comments</h6>
+        <span><%= current_user.comments.count %></span>
+      </div>      
+    </div>
+    <%end%>
+
     <div class="view-profile-button">
       <%= link_to "View Profile", user_profile_path(current_user), class: "button" %>
     </div><br>
@@ -49,12 +55,30 @@
         <%= link_to "New post", new_post_path, class: "button" %>
     </div>
     <br>
+    <% end %>
+    <% if user_signed_in?%>
     <p><strong>Joined on:</strong> <%= current_user.created_at.strftime("%B %d, %Y") %></p>  
     <% end %>
   </div>
 
   <!-- Posts List -->
   <div class="posts-list">
+    <div class="sort-dropdown" >
+      <%= form_with url: posts_path, method: :get, local: true, class: "form-inline" do %>
+        <label for="sort" class="mr-2">Sort By:</label>
+        <%= select_tag :sort, options_for_select(
+          [
+            ['Newest', 'newest'],
+            ['Oldest', 'oldest'],
+            ['Most Upvoted', 'most_upvoted'],
+            ['Most Downvoted', 'most_downvoted'],
+          ], 
+          selected: @sort
+        ), 
+        class: "form-control", 
+        onchange: 'this.form.submit();' %>
+      <% end %>
+    </div> 
     <% @posts.each do |post| %>
       <div id="posts" class="card w-100 mx-auto">
         <div class="card-body"><br>
@@ -109,6 +133,4 @@
       </div>
     <% end %>
   </div>
-</div>
-<div class="container mt-4 mb-4 p-3 d-flex justify-content-center"> <div class="card p-4"> <div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" /></button> <span class="name mt-3">Eleanor Pena</span> <span class="idd">@eleanorpena</span> <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Oxc4c16a645_b21a</span> <span><i class="fa fa-copy"></i></span> </div> <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number">1069 <span class="follow">Followers</span></span> </div> <div class=" d-flex mt-2"> <button class="btn1 btn-dark">Edit Profile</button> </div> <div class="text mt-3"> <span>Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork.<br><br> Artist/ Creative Director by Day #NFT minting@ with FND night. </span> </div> <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> <span><i class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span> </div> <div class=" px-2 rounded mt-4 date "> <span class="join">Joined May,2021</span> </div> </div> </div>
 </div>

@@ -26,10 +26,8 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    # Find the user from the URL parameter
     @user = User.find(params[:id])
 
-    # Redirect if the user is not the one who owns the profile
     if @user != current_user
       redirect_to user_profile_path(current_user), alert: "You can only edit your own profile."
     end
@@ -66,8 +64,33 @@ class ProfilesController < ApplicationController
 
     render "profiles/agency_search_results"
   end
+
+  def delete_profile_picture
+    @user = current_user
+
+    if @user.profile_picture.attached?
+      @user.profile_picture.purge
+      redirect_to edit_user_profile_path(@user), notice: "Profile picture deleted."
+    else
+      redirect_to edit_user_profile_path(@user), alert: "No profile picture to delete."
+    end
+  end
+
+
+  def delete_banner
+    @user = current_user
+
+    if @user.banner.attached?
+      @user.banner.purge
+      redirect_to edit_user_profile_path(@user), notice: "Banner deleted."
+    else
+      redirect_to edit_user_profile_path(@user), alert: "No banner to delete."
+    end
+  end
+
   private
+
   def user_params
-    params.require(:user).permit(:biography)
+    params.require(:user).permit(:biography, :profile_picture, :banner)
   end
 end

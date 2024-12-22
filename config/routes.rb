@@ -25,6 +25,12 @@ Rails.application.routes.draw do
     end
   end
   resource :profile, only: [ :show, :edit, :update ]
+  resources :profiles, only: [ :show, :edit, :update ] do
+    member do
+      delete :delete_profile_picture
+      delete :delete_banner
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,55 +1,67 @@
+<%= stylesheet_link_tag('profile_page')%>
 <%if @user.agency?%>
-  <div class="d-flex align-items-center justify-content-center"> 
-    <h1><%= @user.username %>'s Page</h1> &nbsp; &nbsp;
-    <% if current_user != @user && @user.agency? %>
-      <% if current_user.followees.include?(@user) %>
-        <%= button_to 'Unfollow', follow_path(followee_id: @user.id), method: :delete, class: 'btn btn-danger' %>
+  <div class="banner-container">
+    <% if @user.banner.attached? %>
+      <%= image_tag @user.banner, class: "banner-image" %>
+    <% else %>
+      <%= image_tag "images.png", class: "banner-image" %>
+    <% end %>
+
+    <div class="profile-picture-container">
+      <% if @user.profile_picture.attached? %>
+        <%= image_tag @user.profile_picture, class: "profile-picture" %>
       <% else %>
-        <%= button_to 'Follow', follows_path(followee_id: @user.id), method: :post, class: 'btn btn-primary' %>
+        <%= image_tag "landscape-placeholder.png", class: "profile-picture" %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-
-  <h3>Biography</h3>
-  <p><%= @user.biography || 'No biography available.' %></p>
-
-  <%= link_to 'Edit Profile', edit_user_profile_path(current_user) if current_user == @user %>
-
-
-
-  <p><strong>Email:</strong> <%= @user.email %></p>
-  <p><strong>Role:</strong> <%= @user.role.capitalize %></p>
-
-  <h3>Followers</h3>
-  <% @user.followers.each do |follower| %>
-    <%= link_to follower.username, user_profile_path(follower) %>
-  <% end %>
-
-  <h3>Following</h3>
-  <% @user.followees.each do |followee| %>
-    <%= link_to followee.username, user_profile_path(followee) %>
-  <% end %>
-
-
-  <div class="sort-dropdown">
-    <%= form_with url: user_profile_path, method: :get, local: true, class: "form-inline" do %>
-      <label for="sort" class="mr-2">Sort By:</label>
-      <%= select_tag :sort, options_for_select(
-        [
-          ['Newest', 'newest'],
-          ['Oldest', 'oldest'],
-          ['Most Upvoted', 'most_upvoted'],
-          ['Most Downvoted', 'most_downvoted'],
-        ], 
-        selected: @sort
-      ), 
-      class: "form-control", 
-      onchange: 'this.form.submit();' %>
-    <% end %>
+  <div class="stats-row">
+    <h4><%= current_user.followers.count %> <span class="followers-text">followers</span></h4>
+    <h4><%= current_user.followees.count %> <span class="followers-text">following</span></h4>
+    <h4><%= current_user.posts.count %> <span class="followers-text">posts</span></h4>
   </div>
 
 
-  <h2>Posts</h2>
+  <div style="margin-left: 20%; text-align: left;">
+    <div> 
+      <div class="d-flex">
+        <h1><%= @user.username %>'s Page ✅</h1>&nbsp;&nbsp;&nbsp;
+        <span style="display: flex; align-items: center; justify-content: center;">
+          <%= link_to 'Edit Profile', edit_user_profile_path(current_user) if current_user == @user %>
+          <% if current_user != @user && @user.agency? %>
+            <% if current_user.followees.include?(@user) %>
+              <%= button_to 'Unfollow', follow_path(followee_id: @user.id), method: :delete, class: 'btn btn-danger' %>
+            <% else %>
+              <%= button_to 'Follow', follows_path(followee_id: @user.id), method: :post, class: 'btn btn-primary' %>
+            <% end %>
+          <% end %>
+        </span>
+      </div>
+    </div>
+    <h3>Biography</h3>
+    <p><%= @user.biography || 'No biography available.' %></p>
+  </div>
+
+  <div class=deneme2>
+    <div class="sort-dropdown2">
+      <%= form_with url: user_profile_path, method: :get, local: true, class: "form-inline" do %>
+        <label for="sort" class="mr-2">Sort By:</label>
+        <%= select_tag :sort, options_for_select(
+          [
+            ['Newest', 'newest'],
+            ['Oldest', 'oldest'],
+            ['Most Upvoted', 'most_upvoted'],
+            ['Most Downvoted', 'most_downvoted'],
+          ], 
+          selected: @sort
+        ), 
+        class: "form-control", 
+        onchange: 'this.form.submit();' %>
+      <% end %>
+    </div>
+    <h2 class="page-title">Posts</h2>
+  </div>
+  <br>
   <% if @posts.any? %>
     <% @posts.each do |post| %>
       <div style="margin-bottom: 20px;">
@@ -112,28 +124,63 @@
   <%= link_to 'Back to All Posts', posts_path %>
 <% end %>
 
+
+
+<!-- User Section -->
 <% unless @user.agency?%>
-  <h1><%= @user.username %>'s Page</h1> &nbsp; &nbsp;
-  <h3>Biography</h3>
-  <p><%= @user.biography || 'No biography available.' %></p>
+  <div class="banner-container">
+    <% if @user.banner.attached? %>
+      <%= image_tag @user.banner, class: "banner-image" %>
+    <% else %>
+      <%= image_tag "images.png", class: "banner-image" %>
+    <% end %>
 
-  <%= link_to 'Edit Profile', edit_user_profile_path(current_user) if current_user == @user %>
-  <h3>Following</h3>
-  <% @user.followees.each do |followee| %>
-    <%= link_to followee.username, user_profile_path(followee) %>
-  <% end %>
+    <div class="profile-picture-container">
+      <% if @user.profile_picture.attached? %>
+        <%= image_tag @user.profile_picture, class: "profile-picture" %>
+      <% else %>
+        <%= image_tag "landscape-placeholder.png", class: "profile-picture" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="stats-row-for-user">
+    <h4><%= current_user.followees.count %> <span class="followers-text">following</span></h4>
+    <h4><%= current_user.comments.count %> <span class="followers-text">comments</span></h4>
+  </div>
 
-<h3>Comments:</h3>
+
+<div style="margin-left: 20%; text-align: left;">
+    <div> 
+      <div class="d-flex">
+        <h1><%= @user.username %>'s Page ✅</h1>&nbsp;&nbsp;&nbsp;
+        <span style="display: flex; align-items: center; justify-content: center;">
+          <%= link_to 'Edit Profile', edit_user_profile_path(current_user) if current_user == @user %>
+        </span>
+      </div>
+    </div>
+    <h3>Biography</h3>
+    <p><%= @user.biography || 'No biography available.' %></p>
+  </div>
+
+
+<h3>Comments:</h3><br>
 
 <% if @user_comments.any? %>
   <% @user_comments.each do |comment| %>
     <div class="comment-content card-body">
-      <p><strong>Post:</strong> <%= link_to comment.post.title, post_path(comment.post) %></p>
-      <p><em>commented: <%= time_ago_in_words(comment.created_at) %> ago</em></p>
-      <p><%= comment.content %></p>
+      <div class="d-flex justify-content-between align-items-center">
+        <!-- Adjusted Post with margin -->
+        <p class="m-0 text-center flex-grow-1 shift-right"><strong>Post:</strong> <%= link_to comment.post.title, post_path(comment.post) %></p>
+        <!-- Right-aligned Commented -->
+        <p class="m-0 text-right"><em>commented: <%= time_ago_in_words(comment.created_at) %> ago</em></p>
+      </div>
+      <p class="mt-2"><%= comment.content %></p>
     </div>
   <% end %>
 <% else %>
   <p>No comments available.</p>
 <% end %>
+
+
 <% end %>
+

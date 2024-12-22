@@ -21,8 +21,10 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
+    <% if notice.present? %>
     <p style="color: green; font-weight: bold; text-align: center;"><%= notice %></p>
     <p style="color: red; font-weight: bold; text-align: center;"><%= alert %></p>
+    <% end %>
     <div style="text-align: center;">
     <%= yield %>    
     </div>
