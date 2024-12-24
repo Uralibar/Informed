@@ -10,7 +10,7 @@
 
 
 <div class="sort-dropdown">
-  <%= form_with url: agency_feed_follows_path, method: :get, local: true, class: "form-inline" do %>
+  <%= form_with url: agency_feed_follows_path, method: :get, local: true, class: "form-inline custom-sort-form" do %>
     <label for="sort" class="mr-2">Sort By:</label>
     <%= select_tag :sort, options_for_select(
       [

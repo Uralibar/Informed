@@ -1,6 +1,7 @@
 <h2 class="login-header">Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
   <div class="form-group">
     <%= f.label :email, class: "form-label" %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>

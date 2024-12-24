@@ -45,12 +45,12 @@
 <br>
 <% @post.comments.each do |comment| %>
   <div class="comment" style="padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 10px;">
-    <p><strong><%= comment.user.username %></strong></p>
+    <p><strong><%= link_to comment.user.username, user_profile_path(comment.user) %></strong></p>
     <p class="comment-content card-body"><%= comment.content %></p>
 
     <% if user_signed_in? && comment.user == current_user %>
       <div class="comment-actions" style="margin-top: 10px;">
-        <%= link_to "Edit", edit_post_comment_path(@post, comment), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "Edit", edit_post_comment_path(@post, comment), class: "btn btn-outline-secondary btn-sm" %> &nbsp|&nbsp  
         <%= button_to "Delete", post_comment_path(@post, comment), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
       </div>
     <% end %>
@@ -61,7 +61,7 @@
   <h4>Add a Comment:</h4>
   <%= form_with model: [ @post, @post.comments.build ], local: true do |form| %>
     <div class="field">
-      <%= form.text_area :content, rows: 4 %>
+      <%= form.text_area :content, class: "custom-textarea", rows: 5, placeholder: "Write your comment here..." %>
     </div>
     <div class="actions">
       <%= form.submit "Add Comment", class: "btn btn-primary btn-sm" %>

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "profile/:id/edit", to: "profiles#edit", as: "edit_user_profile"
   get "find_user_by_username", to: "profiles#find_user_by_username", as: "find_user_by_username"
   get "search_agency_users", to: "profiles#search_agency_users", as: "search_agency_users"
+  get "user/upvoted_posts", to: "posts#upvoted_posts", as: "upvoted_posts"
+
 
 
   resources :posts do

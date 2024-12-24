@@ -239,6 +239,11 @@ text-decoration: underline;
    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.comment-actions{
+   display: flex;
+   justify-content: center;
+}
+
 .post-card {
    max-width: 50%;
    margin: auto;
@@ -454,4 +459,134 @@ text-decoration: underline;
    border-radius: 50%;
 }
 
+.custom-sort-form {
+   margin-left: 25%; /* Adjust the value as needed */
+ }
+
+.custom-textarea{
+   width: 50%;
+   height: 120px;
+   padding: 12px;
+   border: 1px solid #d0d0d0;
+   border-radius: 6px;
+   font-size: 14px;
+   background-color: #ffffff;
+   resize: none;
+}
+
+/* Styling for text areas on the Editing Comment page */
+.edit-comment-page textarea {
+   width: 50%;
+   height: 150px;
+   padding: 10px;
+   font-size: 16px;
+   border: 1px solid #cccccc;
+   border-radius: 5px;
+   background-color: #f9f9f9;
+   transition: border-color 0.3s ease, background-color 0.3s ease;
+ }
  
+.edit-comment-page textarea:focus {
+   border-color: #3498db;
+   background-color: #ffffff;
+   box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+ 
+/* Simple style for the Submit Button */
+.edit-comment-page input[type="submit"] {
+   background-color: #3498db; /* Blue background */
+   color: white; /* White text */
+   border: none; /* Remove default border */
+   border-radius: 5px; /* Slightly rounded corners */
+   padding: 10px 15px; /* Padding around text */
+   cursor: pointer; /* Pointer cursor on hover */
+   transition: background-color 0.3s ease; /* Smooth background color transition */
+ }
+ 
+ /* Hover effect for the button */
+ .edit-comment-page input[type="submit"]:hover {
+   background-color: #2980b9; /* Darker blue on hover */
+ }
+ 
+ /* Style for the Forgot Password Page */
+.forgot-password-form {
+   width: 100%;
+   max-width: 400px; /* Limit the form width */
+   margin: 0 auto; /* Center the form horizontally */
+   padding: 20px;
+   background-color: #f9f9f9; /* Light background */
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+ }
+ 
+ /* Title styling */
+.forgot-password-form h2 {
+   text-align: center;
+   color: #333; /* Dark text color */
+   margin-bottom: 20px;
+}
+
+/* Form fields styling */
+.forgot-password-form .field {
+   margin-bottom: 20px;
+}
+
+.forgot-password-form .field label {
+   display: block;
+   font-size: 14px;
+   color: #555;
+   margin-bottom: 5px;
+}
+
+/* Input field styling */
+.forgot-password-form input[type="email"] {
+   width: 100%;
+   padding: 10px;
+   font-size: 14px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.forgot-password-form input[type="email"]:focus {
+   border-color: #3498db;
+   outline: none;
+}
+
+/* Submit button styling */
+.forgot-password-form input[type="submit"] {
+   background-color: #3498db; /* Blue background */
+   color: white; /* White text */
+   font-weight: bold;
+   padding: 12px 20px;
+   width: 100%;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.forgot-password-form input[type="submit"]:hover {
+   background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Link styling */
+.forgot-password-form .devise-links {
+   text-align: center;
+   margin-top: 20px;
+}
+
+.forgot-password-form .devise-links a {
+   color: #3498db;
+   text-decoration: none;
+}
+
+.forgot-password-form .devise-links a:hover {
+   text-decoration: underline;
+}
+
+#error_explanation ul {
+   color: red;
+   font-weight: bold;
+   padding: 0;
+ }

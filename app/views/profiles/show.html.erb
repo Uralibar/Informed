@@ -16,9 +16,9 @@
     </div>
   </div>
   <div class="stats-row">
-    <h4><%= current_user.followers.count %> <span class="followers-text">followers</span></h4>
-    <h4><%= current_user.followees.count %> <span class="followers-text">following</span></h4>
-    <h4><%= current_user.posts.count %> <span class="followers-text">posts</span></h4>
+    <h4><%= @user.followers.count %> <span class="followers-text">followers</span></h4>
+    <h4><%= @user.followees.count %> <span class="followers-text">following</span></h4>
+    <h4><%= @user.posts.count %> <span class="followers-text">posts</span></h4>
   </div>
 
 
@@ -27,7 +27,7 @@
       <div class="d-flex">
         <h1><%= @user.username %>'s Page ✅</h1>&nbsp;&nbsp;&nbsp;
         <span style="display: flex; align-items: center; justify-content: center;">
-          <%= link_to 'Edit Profile', edit_user_profile_path(current_user) if current_user == @user %>
+          <%= link_to 'Edit Profile', edit_user_profile_path(current_user), class: 'btn btn-primary' if current_user == @user %>
           <% if current_user != @user && @user.agency? %>
             <% if current_user.followees.include?(@user) %>
               <%= button_to 'Unfollow', follow_path(followee_id: @user.id), method: :delete, class: 'btn btn-danger' %>
@@ -152,16 +152,15 @@
 <div style="margin-left: 20%; text-align: left;">
     <div> 
       <div class="d-flex">
-        <h1><%= @user.username %>'s Page ✅</h1>&nbsp;&nbsp;&nbsp;
+        <h1><%= @user.username %>'s Page </h1>&nbsp;&nbsp;&nbsp;
         <span style="display: flex; align-items: center; justify-content: center;">
-          <%= link_to 'Edit Profile', edit_user_profile_path(current_user) if current_user == @user %>
+          <%= link_to 'Edit Profile', edit_user_profile_path(current_user), class: 'btn btn-primary' if current_user == @user %>
         </span>
       </div>
     </div>
     <h3>Biography</h3>
     <p><%= @user.biography || 'No biography available.' %></p>
   </div>
-
 
 <h3>Comments:</h3><br>
 

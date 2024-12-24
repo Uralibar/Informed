@@ -17,10 +17,13 @@
             <%= link_to "Add Post", new_post_path , class:"nav-link"%>
           </li>
           <li class="nav-item">
+            <%= link_to 'Following', agency_feed_follows_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
             <%= link_to "View Profile", user_profile_path(current_user), class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Following', agency_feed_follows_path, class:"nav-link" %>
+            <%= link_to "💖 Liked Posts", upvoted_posts_path, class:"nav-link"%>
           </li> 
           <li class="nav-item">
             <%= link_to "Edit Profile", edit_user_registration_path , class:"nav-link"%>
@@ -31,6 +34,12 @@
         <% elsif user_signed_in?%>
           <li class="nav-item">
             <%= link_to 'Following', agency_feed_follows_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "View Profile", user_profile_path(current_user), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "💖 Liked Posts", upvoted_posts_path, class:"nav-link"%>
           </li>            
           <li class="nav-item">
             <%= link_to "Edit Profile", edit_user_registration_path , class:"nav-link"%>

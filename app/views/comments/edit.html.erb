@@ -1,11 +1,13 @@
 <% content_for :title, "Editing comment" %>
 
-<h1>Editing comment</h1>
+<div class="edit-comment-page">
+  <h1>Editing comment</h1>
 
-<%= render "form", comment: @comment %>
+  <%= render "form", comment: @comment %>
 
-<br>
+  <br>
 
-<div>
-  <%= link_to "Back to post", @comment.post %>
+  <div>
+    <%= link_to "Back to post", @comment.post %>
+  </div>
 </div>

@@ -93,6 +93,9 @@ class PostsController < ApplicationController
     handle_vote(-1, "Downvote removed!", "Downvoted successfully!")
   end
 
+  def upvoted_posts
+    @upvoted_posts = current_user.votes.where(value: 1).includes(:post).order("votes.created_at DESC").map(&:post)
+  end
 
   private
 
