@@ -11,8 +11,8 @@
 .profile-picture-container {
     position: absolute;
     bottom: 0;
-    left: 5%;
-    transform: translateY(50%);
+    left: 2%;
+    transform: translateY(84%);
 }
 
 .profile-picture {
@@ -181,6 +181,31 @@ h4 {
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s ease;
+}
+
+.stats-column-under-profile {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.stats-column-under-profile h4, .stats-column-under-profile h3 {
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.stats-column-under-profile p {
+  margin: 5px 0 0;
+  color: gray;
+  text-align: center;
+}
+
+.followers-text {
+  font-weight: normal;
+  color: gray;
 }
 
 .edit-profile-form .btn-secondary:hover {

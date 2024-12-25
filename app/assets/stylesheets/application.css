@@ -14,7 +14,7 @@
  *= require_self
  */
 body {
-   background-color: #aaa5a57b; /* or your desired color */
+   background-color: #eff6ff; /* or your desired color */
    }
 .bg-dark {
    background-color: #003366!important;
@@ -156,7 +156,7 @@ color: #555;
 
 /* Submit button */
 .form-actions .btn {
-width: 15%;
+
 font-size: 16px;
 }
 
