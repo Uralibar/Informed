@@ -49,31 +49,46 @@ class PostsController < ApplicationController
 
   # POST /posts or /posts.json
   def create
-    @post = current_user.posts.build(post_params)
+    ActiveRecord::Base.transaction do
+      @post = current_user.posts.build(post_params)
 
-    respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
+        # Perform additional operations here
+        respond_to do |format|
+          format.html { redirect_to @post, notice: "Post was successfully created." }
+          format.json { render :show, status: :created, location: @post }
+        end
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        raise ActiveRecord::RecordInvalid.new(@post)
       end
     end
+  rescue ActiveRecord::RecordInvalid => e
+    respond_to do |format|
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @post.errors, status: :unprocessable_entity }
+    end
   end
+
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
-    respond_to do |format|
+    ActiveRecord::Base.transaction do
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: "Post was successfully updated." }
-        format.json { render :show, status: :ok, location: @post }
+        respond_to do |format|
+          format.html { redirect_to @post, notice: "Post was successfully updated." }
+          format.json { render :show, status: :ok, location: @post }
+        end
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
+        raise ActiveRecord::RecordInvalid.new(@post)
       end
     end
+  rescue ActiveRecord::RecordInvalid => e
+    respond_to do |format|
+      format.html { render :edit, status: :unprocessable_entity }
+      format.json { render json: @post.errors, status: :unprocessable_entity }
+    end
   end
+
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
@@ -119,17 +134,20 @@ class PostsController < ApplicationController
       end
     end
     def handle_vote(value, remove_message, add_message)
-      post = Post.find(params[:id])
-      vote = post.votes.find_by(user: current_user)
+      ActiveRecord::Base.transaction do
+        post = Post.find(params[:id])
+        vote = post.votes.find_by(user: current_user)
 
-      if vote&.value == value
-        vote.destroy
-        redirect_to request.referer || posts_path, notice: remove_message
-      else
-        vote = post.votes.find_or_initialize_by(user: current_user)
-        vote.value = value
-        vote.save
-        redirect_to request.referer || posts_path, notice: add_message
-      end
-    end
+        if vote&.value == value
+          vote.destroy!
+          redirect_to request.referer || posts_path, notice: remove_message
+        else
+          vote = post.votes.find_or_initialize_by(user: current_user)
+          vote.update!(value: value)
+          redirect_to request.referer || posts_path, notice: add_message
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        redirect_to request.referer || posts_path, alert: "Failed to process your vote: #{e.message}"
+     end
+end
 end
