@@ -12,7 +12,8 @@
     position: absolute;
     bottom: 0;
     left: 2%;
-    transform: translateY(84%);
+    transform: translateY(50%);
+    margin-left: 3%;
 }
 
 .profile-picture {
@@ -56,20 +57,15 @@ h4 {
   display: flex;
   justify-content: center;
   align-items: center; 
-  width: 90%; 
-  padding: 0 10px;
-  margin-left: 5%;
+  flex-flow: row wrap;
 }
 
 .page-title {
   text-align: center;
   flex-grow: 1;
-  margin-right: 33%;
+  margin-right: 25%;
 }
 
-.sort-dropdown2{
-  margin-left: 19.6%;
-}
 
 .sort-dropdown2 select {
   color: #000; 
@@ -283,4 +279,33 @@ h4 {
 
 .follower-link:hover, .followee-link:hover {
   text-decoration: underline;
+}
+
+.content-wrap{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.profile-wrapper{
+  margin-top: 5%;
+  margin-left: 1%;
+  width: 20%;
+}
+
+.profile-posts-list{
+  width: 50%;
+  margin-left: 5%;
+}
+
+.profile-comment-content{
+  margin: auto;
+  background-color: #cecece;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.biography-text {
+  width: 80%; /* Adjust this value as needed */
+  margin: 0 auto; /* Centers the text */
+  word-wrap: break-word; /* Ensures long words break properly */
 }
