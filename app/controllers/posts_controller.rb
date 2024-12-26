@@ -62,7 +62,7 @@ class PostsController < ApplicationController
         raise ActiveRecord::RecordInvalid.new(@post)
       end
     end
-  rescue ActiveRecord::RecordInvalid => e
+  rescue ActiveRecord::RecordInvalid
     respond_to do |format|
       format.html { render :new, status: :unprocessable_entity }
       format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -82,7 +82,7 @@ class PostsController < ApplicationController
         raise ActiveRecord::RecordInvalid.new(@post)
       end
     end
-  rescue ActiveRecord::RecordInvalid => e
+  rescue ActiveRecord::RecordInvalid
     respond_to do |format|
       format.html { render :edit, status: :unprocessable_entity }
       format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -149,5 +149,5 @@ class PostsController < ApplicationController
       rescue ActiveRecord::RecordInvalid => e
         redirect_to request.referer || posts_path, alert: "Failed to process your vote: #{e.message}"
      end
-end
+    end
 end
