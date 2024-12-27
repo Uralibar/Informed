@@ -38,8 +38,8 @@
 }
 .stats-row {
     display: flex;
-    justify-content: space-between; /* Distribute the items evenly */
-    align-items: center; /* Vertically align the items */
+    justify-content: space-between; 
+    align-items: center; 
     margin-left: 20%;
     margin-right: 40%;
   }
@@ -81,8 +81,8 @@ h4 {
 
 .stats-row-for-user {
   display: flex;
-  justify-content: space-between; /* Distribute the items evenly */
-  align-items: center; /* Vertically align the items */
+  justify-content: space-between; 
+  align-items: center; 
   margin-left: 20%;
   margin-right: 56%;
 }
@@ -265,7 +265,7 @@ h4 {
 }
 
 .followers-container, .followees-container {
-  width: 45%; /* Adjust width as necessary */
+  width: 45%; 
   padding: 10px;
   box-sizing: border-box;
 }
@@ -279,6 +279,11 @@ h4 {
 
 .follower-link:hover, .followee-link:hover {
   text-decoration: underline;
+}
+
+.followers-list, .followees-list{
+  max-height: 100px;
+  overflow-y: auto; 
 }
 
 .content-wrap{

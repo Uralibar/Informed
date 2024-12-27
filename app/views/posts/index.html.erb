@@ -86,7 +86,9 @@
           <p><strong>Posted by:</strong> <%= link_to post.user.username, user_profile_path(post.user) %></p>
           <p><strong>Posted:</strong> <%= time_ago_in_words(post.created_at) %> ago</p>
           <h2 class="card-title"><%= post.title %></h2>
-          <p class="card-text"><%= post.content %></p>
+          <p class="card-text"><%= truncate(post.content.to_plain_text, length: 500, omission: '...') %></p>
+
+
           
           <!-- Voting Section -->
           <div class="post-voting-index">

@@ -76,7 +76,7 @@
               <div class="card-body"><br>
                 <p><strong>Posted:</strong> <%= time_ago_in_words(post.created_at) %> ago</p>
                 <h2 class="card-title"><%= post.title %></h2>
-                <p class="card-text"><%= post.content %></p>
+                <p class="card-text"><%= truncate(post.content.to_plain_text, length: 500, omission: '...') %></p>
                 <!-- Voting Section -->
                 <div class="post-voting-index">
                   <p>Score: <%= post.score %></p>
@@ -200,17 +200,22 @@
     <div class="followers-followees-container">
       <div class="followers-container">
         <h3>Followers</h3>
-        <% @user.followers.each do |follower| %>
-          <%= link_to follower.username, user_profile_path(follower), class: 'follower-link' %>
-        <% end %>
+        <div class="followers-list">
+          <% @user.followers.each do |follower| %>
+            <%= link_to follower.username, user_profile_path(follower), class: 'follower-link' %>
+          <% end %>
+        </div>
       </div>
 
       <div class="followees-container">
         <h3>Followees</h3>
-        <% @user.followees.each do |followee| %>
-          <%= link_to followee.username, user_profile_path(followee), class: 'followee-link' %>
-        <% end %>
+        <div class="followees-list">
+          <% @user.followees.each do |followee| %>
+            <%= link_to followee.username, user_profile_path(followee), class: 'followee-link' %>
+          <% end %>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
