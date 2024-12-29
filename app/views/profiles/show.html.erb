@@ -208,7 +208,7 @@
       </div>
 
       <div class="followees-container">
-        <h3>Followees</h3>
+        <h3>Following</h3>
         <div class="followees-list">
           <% @user.followees.each do |followee| %>
             <%= link_to followee.username, user_profile_path(followee), class: 'followee-link' %>
