@@ -154,7 +154,7 @@
     <div class="profile-wrapper">
       <!-- Username and Edit Profile Button -->
       <div class="profile-header-overlay">
-        <h1><%= @user.username %>'s Page ✅</h1>
+        <h1><%= @user.username %>'s Page </h1>
           <%= link_to 'Edit Profile', edit_user_profile_path(current_user), class: 'btn btn-primary' if current_user == @user %>
       </div>
 

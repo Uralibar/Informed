@@ -9,9 +9,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="http://127.0.0.1:3000">Home</a>
         </li>
-        <li class="nav-item">
-          <%= link_to "Posts", posts_path , class:"nav-link"%>
-        </li>
+       
         <% if user_signed_in? && current_user.agency?%>
           <li class="nav-item">
             <%= link_to "Add Post", new_post_path , class:"nav-link"%>
